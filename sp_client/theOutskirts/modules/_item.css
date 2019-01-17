@@ -1,0 +1,34 @@
+.item {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+  margin-top: 7rem;
+
+  @mixin atMedium {
+    margin-top: 9rem;
+  }
+
+  &__container {
+    margin: auto 2rem;
+    @mixin atMedium {
+      margin: auto 13rem;
+    }
+  }
+
+  &__vote-list {
+    padding: 1.2rem;
+  }
+
+  &__list {
+    padding-top: 0.4rem;
+    @mixin clearfix;
+  }
+
+  &__float-left {
+    float: left;
+  }
+
+  &__float-right {
+    float: right;
+  }
+}
