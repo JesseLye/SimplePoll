@@ -373,7 +373,7 @@ body {
 }
 
 .form__header {
-    padding-top: 2rem;
+    padding-top: 1rem;
     text-align: center;
   }
 
@@ -383,6 +383,11 @@ body {
 
 .form__vote-poll {
     padding-bottom: 1.5rem;
+  }
+
+.form__error--header {
+    font-weight: 300;
+    margin-bottom: 0;
   }
 
 .item__header {
@@ -554,6 +559,11 @@ body {
 .form {
   font-size: 1.5rem;
 }
+
+.form__error {
+    padding-top: 1rem;
+    text-align: center;
+  }
 
 .form__opacity {
     position: absolute;

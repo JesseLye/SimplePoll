@@ -4,12 +4,12 @@ import { LOAD_POLL, VOTE_POLL, EMPTY_POLL } from "../actionTypes";
 
 export const loadPollDispatch = (response) => ({
   type: LOAD_POLL,
-  isNew: false,
   response
 });
 
 export const votePollDispatch = (vote) => ({
   type: VOTE_POLL,
+  proceed: true,
   vote
 });
 

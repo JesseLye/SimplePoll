@@ -9,6 +9,7 @@ class CreatePollForm extends Component {
     this.state = {
       title: "",
       options: [""],
+      errors: "",
       formEnabled: true
     };
 
@@ -17,6 +18,7 @@ class CreatePollForm extends Component {
     this.handleChangeOpt = this.handleChangeOpt.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOptRemove = this.handleOptRemove.bind(this);
+    this.handleError = this.handleError.bind(this);
   };
 
   componentDidMount(){
@@ -28,8 +30,18 @@ class CreatePollForm extends Component {
     if(Object.keys(nextProps.poll).length > 0){
       this.props.history.push(`/poll/${nextProps.poll._id}`);
     };
+
+    if(nextProps.errors.message) {
+      this.handleError(nextProps.errors.message);
+    };
+
     return true;
   };
+
+  handleError(err) {
+    this.props.removeError();
+    this.setState({...this.state, errors: err, formEnabled: true});
+  }
 
   handleChange(e) {
     this.setState({[e.target.name]: e.target.value});
@@ -41,14 +53,18 @@ class CreatePollForm extends Component {
   };
 
   handleChangeOpt(e) {
-    const index = Number(e.target.name.split('-')[1]);
-    let options = this.state.options.map((opt, i) => (
-      i === index ? e.target.value : opt
-    ));
-    if(index === options.length - 1 && options.length - 1 < 9){
-      options.push("");
-    };
-    this.setState({options});
+    if(this.state.formEnabled){
+      const index = Number(e.target.name.split('-')[1]);
+      let options = this.state.options.map((opt, i) => (
+        i === index ? e.target.value : opt
+      ));
+      if(index === options.length - 1 && options.length - 1 < 9){
+        options.push("");
+      };
+      this.setState({options});
+    } else {
+      return; 
+    }
   };
 
   handleOptRemove(select) {
@@ -65,8 +81,6 @@ class CreatePollForm extends Component {
     const jsonState = JSON.stringify(this.state);
     this.props.createPoll(jsonState);
     this.setState({
-      title: "",
-      options: [""],
       formEnabled: false
     });
   };
@@ -74,6 +88,7 @@ class CreatePollForm extends Component {
   render(){
     const { title, options } = this.state;
     const { errors } = this.props;
+
     let inputs = options.map((opt, i) => (
       <div key={`option-${i}`}>
         {/* <label className="form__create-poll--label">{`${i+1}.`} */}
@@ -100,24 +115,30 @@ class CreatePollForm extends Component {
     return (
       <div className="container">
         <div className="item">
-          {errors && <h1>{errors.message}</h1>}
+          {this.state.errors && 
+            <div className="form__error">
+              <h1 className="form__error--header">{this.state.errors}</h1>
+            </div>
+          }
           <form className="form form__create-poll" onSubmit={this.handleSubmit}>
               <h1 className="form__header">New Poll</h1>
-              {/* <div className="create-poll__header"> */}
-                <input
-                  className="form__create-poll--title"
-                  id="create-poll-form-title-input"
-                  key="title"
-                  name="title"
-                  type="text"
-                  value={title}
-                  // size={45}
-                  autoComplete="off"
-                  placeholder="title"
-                  onChange={this.handleChange} />
-              {/* </div> */}
-              {inputs}
-              <button className="btn btn__create-poll" type="submit">Create Poll</button>
+              <fieldset disabled={!this.state.formEnabled} style={{padding: "0", border: "none"}}>
+                {/* <div className="create-poll__header"> */}
+                  <input
+                    className="form__create-poll--title"
+                    id="create-poll-form-title-input"
+                    key="title"
+                    name="title"
+                    type="text"
+                    value={title}
+                    // size={45}
+                    autoComplete="off"
+                    placeholder="title"
+                    onChange={this.handleChange} />
+                {/* </div> */}
+                {inputs}
+                <button className="btn btn__create-poll" type="submit">{this.state.formEnabled ? "Create Poll" : "Please Wait..."}</button>
+              </fieldset>
           </form>
         </div>
       </div>

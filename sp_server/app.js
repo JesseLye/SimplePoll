@@ -10,7 +10,8 @@ const express = require("express"),
       authRoutes = require("./routes/auth"),
       resetRoutes = require("./routes/reset"),
       userRoutes = require("./routes/user"),
-      errorHandler = require("./handlers/error");
+      errorHandler = require("./handlers/error"),
+      PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
@@ -33,6 +34,6 @@ app.use(function(req, res, next) {
 
 app.use(errorHandler);
 
-app.listen(8080, function(){
+app.listen(PORT, function(){
   console.log("Running on port 8080!");
 });
