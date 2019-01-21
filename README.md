@@ -1,5 +1,5 @@
 # SimplePoll
-SimplePoll is a straw poll application created immediately after [StrangerDanger](https://github.com/JesseLye/Stranger-Danger-A-Social-Media-Travesty). The objective was to determine the viability of recycling StrangerDanger's assets into a project which has a similar core functionality.
+SimplePoll is a straw poll application created immediately after [StrangerDanger](https://github.com/JesseLye/StrangerDanger-QA-Social-Network). The objective was to determine the viability of recycling StrangerDanger's assets into a project which has a similar core functionality.
 
 ![screenshot_001 img](doc_imgs/Screenshot_001.png)
 
