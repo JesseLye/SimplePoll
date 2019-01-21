@@ -16,6 +16,10 @@ const express = require("express"),
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
 
+if (process.env.NODE_ENV == 'production') {
+  app.enable('trust proxy');
+}
+
 app.get("/test", function(req, res, next){
   // var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   res.send(req.ip);

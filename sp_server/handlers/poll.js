@@ -71,21 +71,10 @@ exports.onCreatePoll = async function(req, res, next){
 
 exports.onVotePoll = async function(req, res, next){
   try {
-    // Heroku specific code --- start
-    var ipAddr = req.headers["x-forwarded-for"];
-
-    if(ipAddr) {
-      var list = ipAddr.split(",");
-      ipAddr = list[list.length - 1];
-    } else {
-      ipAddr = req.ip;
-    }
-    // ---end
-
     var updateComplete = false;
     var foundPoll = await db.Poll.findById(req.params.id);
     for(var i = 0; foundPoll.voterIP.length > i; i++){
-      if(foundPoll.voterIP[i] == ipAddr){
+      if(foundPoll.voterIP[i] == req.ip){
         return next({
           status: 403,
           message: "Vote already submitted"
@@ -117,7 +106,7 @@ exports.onVotePoll = async function(req, res, next){
     for(var k = 0; foundPoll.options.length > k; k++){
       if(foundPoll.options[k]._id == req.body.options_id){
         foundPoll.options[k].count++;
-        foundPoll.voterIP.push(ipAddr);
+        foundPoll.voterIP.push(req.ip);
         updateComplete = true;
       };
     };
