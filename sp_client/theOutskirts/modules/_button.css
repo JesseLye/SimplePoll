@@ -79,14 +79,15 @@
     }
 
     &:hover {
-      transform: translateY(-5px);
-      background-color: #3EB991;
-      box-shadow: 0rem 1rem 2rem rgba(#000, .2);
+      /*transform: translateY(-5px);*/
+      background-color: #339676;
+      /*box-shadow: 0rem 1rem 2rem rgba(#000, .2);*/
+      cursor: pointer;
     }
 
     &:active {
       background-color: #000;
-      transform: translateY(2px);
+      /*transform: translateY(2px);*/
     }
   }
 

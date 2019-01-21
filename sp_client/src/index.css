@@ -821,17 +821,16 @@ body {
 
 .btn__authForm:hover,
 .btn__authForm.\:hover {
-      -webkit-transform: translateY(-5px);
-              transform: translateY(-5px);
-      background-color: #3EB991;
-      box-shadow: 0rem 1rem 2rem rgba(0,0,0, .2);
+      /*transform: translateY(-5px);*/
+      background-color: #339676;
+      /*box-shadow: 0rem 1rem 2rem rgba(#000, .2);*/
+      cursor: pointer;
     }
 
 .btn__authForm:active,
 .btn__authForm.\:active {
       background-color: #000;
-      -webkit-transform: translateY(2px);
-              transform: translateY(2px);
+      /*transform: translateY(2px);*/
     }
 
 .btn__forgot-password {

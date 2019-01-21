@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout, authUser } from "../store/actions/auth";
-import { removeError } from "../store/actions/errors";
+import { removeErrorAuth } from "../store/actions/authErrors";
 import AuthForm from "../components/AuthForm";
 
 class Navbar extends Component {
@@ -35,13 +35,13 @@ class Navbar extends Component {
   };
 
   render() {
-    const { authUser, navbarErrors, removeError } = this.props;
+    const { authUser, authErrors, removeErrorAuth } = this.props;
 
     return (
       <div>
         {this.state.signInForm && (
-          <AuthForm removeError={removeError}
-                    errors={navbarErrors}
+          <AuthForm removeError={removeErrorAuth}
+                    errors={authErrors}
                     onAuth={authUser}
                     buttonText="Log In"
                     heading="Welcome Back"
@@ -52,12 +52,13 @@ class Navbar extends Component {
         )}
 
         {this.state.signUpForm && (
-          <AuthForm removeError={removeError}
-                    errors={navbarErrors} onAuth={authUser}
+          <AuthForm removeError={removeErrorAuth}
+                    errors={authErrors} onAuth={authUser}
                     signUp
                     buttonText="Sign me up!"
                     heading="Join StrangerDanger"
                     resetFunc={this.resetState}
+                    onClose={() => this.setState({...this.state, signInForm: false, signUpForm: false})}
                     {...this.props}
           />
         )}
@@ -101,8 +102,8 @@ class Navbar extends Component {
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
-    navbarErrors: state.errors
+    authErrors: state.authErrors
   };
 }
 
-export default withRouter(connect(mapStateToProps, { authUser, logout, removeError })(Navbar));
+export default withRouter(connect(mapStateToProps, { authUser, logout, removeErrorAuth })(Navbar));
