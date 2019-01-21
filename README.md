@@ -19,5 +19,3 @@ SimplePoll is a straw poll application created immediately after [StrangerDanger
 1. Fire up Mongodb with the usual ```sudo mongod``` command 
 1. cd into sp_server and run ```node app.js```
 1. cd into sp_client and run ```npm start```
-
-Last Updated - November 2018 
